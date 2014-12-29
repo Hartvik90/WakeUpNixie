@@ -13,7 +13,6 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("kaduvil.fxml"));
 		stage.setTitle("JavaFX Welcome");
 		Scene scene = new Scene(loader.load(), 640, 800);

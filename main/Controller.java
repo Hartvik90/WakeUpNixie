@@ -4,6 +4,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,11 +27,10 @@ public class Controller implements Initializable{
 	private DecimalFormat df = new DecimalFormat("00.##");
 	private int nextDay;
 	private GregorianCalendar calender = new GregorianCalendar();
-	private boolean waitMid = false;
 	private boolean alarmFF = false;
 	private String day = null;
 	private Alarm alarm = new Alarm(0,0, calender);
-	
+
 	@FXML
 	private BorderPane borderpanel;
 	@FXML
@@ -49,27 +49,33 @@ public class Controller implements Initializable{
 	private Label Klokke;
 	@FXML
 	private Hyperlink VaerLink;
+	@SuppressWarnings("rawtypes")
 	@FXML
 	private ChoiceBox MinCBox;
+	@SuppressWarnings("rawtypes")
 	@FXML
 	private ChoiceBox HourCBox;
 	@FXML
 	private Label AlarmLabel;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		//Set up itemboxes
 		HourCBox.setItems(FXCollections.observableArrayList("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
 		MinCBox.setItems(FXCollections.observableArrayList("00","05","10","15","20","25","30","35","40","45","50","55"));
 		HourCBox.getSelectionModel().selectFirst();
 		MinCBox.getSelectionModel().selectFirst();
+
+		//Automatic set schedule width.
 		LeftPane.widthProperty().addListener((observable, oldvalue, newvalue)->{
 			bilde.setFitWidth(newvalue.doubleValue());
 		});
-
 		LeftPane.heightProperty().addListener((observable, oldvalue, newvalue)->{
 			bilde.setFitHeight(newvalue.doubleValue());
 		});
+
 
 		/*		LysKnapp.setOnMouseClicked(event -> {
 	GPIO Toggle light on for 30 min		 *
@@ -83,20 +89,19 @@ public class Controller implements Initializable{
 				alarm.setalarmSet(false);
 				alarmFF = false;
 			}
-			//System.out.println(event.getX());
-
 		});
 
 		TomorrowButton.setOnMousePressed(event ->{
-		nextDay = 1;
+			nextDay = 1;
 		});
 
 		TomorrowButton.setOnMouseReleased(event ->{
-		nextDay = 0;
+			nextDay = 0;
 		});
 
 		Awake.setOnMousePressed(event ->{
 			alarm.setisAwake(true);
+			Awake.setVisible(false);
 		});
 
 		Timeline timeline = new Timeline(new KeyFrame(
@@ -107,22 +112,21 @@ public class Controller implements Initializable{
 
 	}
 
-/*	private void toggleLight(int time){
+	/*	private void toggleLight(int time){
 		Timeline lightTime = new Timeline(new KeyFrame(
 				Duration.millis(1000),
 				ae -> lightTrigger(time)));
 		lightTime.setCycleCount(Animation.INDEFINITE);
 		lightTime.play();	
 	}
-*/
-	
+	 */
+
 
 	@SuppressWarnings("deprecation")
+	
 	public void updateCalender(){
 
 		calender = new GregorianCalendar();
-
-
 		switch (calender.getTime().getDay() + nextDay){
 		case 0:
 			day = new String("Sunday.png");
@@ -148,11 +152,9 @@ public class Controller implements Initializable{
 		case 7:
 			day = new String("Sunday.png");
 			break;
-
-
 		}
-		bilde.setImage(new Image(Controller.class.getResource(day).toString()));
 
+		bilde.setImage(new Image(Controller.class.getResource(day).toString()));
 		Klokke.setText(df.format(calender.getTime().getHours()) + ":" + df.format(calender.getTime().getMinutes()) + ":" + df.format(calender.getTime().getSeconds()));
 
 		if (alarm.getalarmSet() == true){
@@ -160,13 +162,8 @@ public class Controller implements Initializable{
 			AlarmStatus.setVisible(true);
 
 		}else{
-
 			AlarmStatus.setVisible(false);
 
 		}
-		if (calender.getTime().getHours() == 0 && calender.getTime().getMinutes() == 0){
-			waitMid = false;
-		}
-
 	}
 }
