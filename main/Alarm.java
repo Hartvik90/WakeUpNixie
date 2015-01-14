@@ -12,19 +12,15 @@ public class Alarm{
 
 	//Check if it is time to wake up:
 	void wakeUp(){
+		calendar = new GregorianCalendar();
 		@SuppressWarnings("deprecation")
 		LocalTime now = LocalTime.of(calendar.getTime().getHours(),calendar.getTime().getMinutes());
-		System.out.printf("%s %s %d %s", alarmSet, isAwake,alarmTime.compareTo(now));
-		if (alarmSet && alarmTime.compareTo(now) == 0 && !isAwake){
-			System.out.println("Ring ring");
+		if (alarmSet && !isAwake && alarmTime.compareTo(now) == 0){
 			isRinging = true;
 		}else{
 			isRinging = false;
 		}
 	}
-
-
-
 
 	//Constructor
 	Alarm(int hour, int minutes, GregorianCalendar calendar){
@@ -51,7 +47,6 @@ public class Alarm{
 	public boolean isRinging() {
 		return isRinging;
 	}
-
 
 	public void setisAwake(boolean b) {
 		isAwake = b;

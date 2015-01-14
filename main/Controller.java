@@ -27,7 +27,7 @@ public class Controller implements Initializable{
 	private DecimalFormat df = new DecimalFormat("00.##");
 	private int nextDay;
 	private GregorianCalendar calender = new GregorianCalendar();
-	private boolean alarmFF = false;
+	private boolean alarmFlipFlop = false;
 	private String day = null;
 	private Alarm alarm = new Alarm(0,0, calender);
 
@@ -44,7 +44,7 @@ public class Controller implements Initializable{
 	@FXML
 	private Button PostponeButton;
 	@FXML
-	
+
 	private ImageView bilde;
 	@FXML
 	private AnchorPane LeftPane;
@@ -60,7 +60,7 @@ public class Controller implements Initializable{
 	private ChoiceBox HourCBox;
 	@FXML
 	private Label AlarmLabel;
-	
+
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
@@ -84,7 +84,7 @@ public class Controller implements Initializable{
 		/*		LysKnapp.setOnMouseClicked(event -> {
 	GPIO Toggle light on for 30 min		 *
 		 */
-		
+
 
 		PostponeButton.setOnMouseClicked(event -> {
 			calender.getTime().getHours();
@@ -92,18 +92,19 @@ public class Controller implements Initializable{
 			alarm.setalarmSet(true);
 
 		});
-		
+
 		AlarmButton.setOnMouseClicked(event -> {
-			if (alarmFF == false){
+			if (alarmFlipFlop == false){
 				alarm.setTime(Integer.parseInt(HourCBox.getValue().toString()),Integer.parseInt(MinCBox.getValue().toString()));
 				alarm.setalarmSet(true);
-				alarmFF = true;
+				alarm.setisAwake(false);
+				alarmFlipFlop = true;
 			}else{
 				alarm.setalarmSet(false);
-				alarmFF = false;
+				alarmFlipFlop = false;
 			}
 		});
-		
+
 
 		TomorrowButton.setOnMousePressed(event ->{
 			nextDay = 1;
@@ -126,7 +127,7 @@ public class Controller implements Initializable{
 
 		AlarmLabel.setVisible(false);
 		AlarmStatus.setVisible(false);
-		
+
 	}
 
 	/*	private void toggleLight(int time){
@@ -140,7 +141,7 @@ public class Controller implements Initializable{
 
 
 	@SuppressWarnings("deprecation")
-	
+
 	public void updateCalender(){
 
 		calender = new GregorianCalendar();
@@ -186,13 +187,15 @@ public class Controller implements Initializable{
 		}
 		if (alarm.isRinging()){
 			AlarmLabel.setVisible(true);
-			//Slumre.setVisible(true);
-			//GPIO LightSwitch high.
 			PostponeButton.setVisible(true);
 			AwakeButton.setVisible(true);
+			//Slumre.setVisible(true);
+			//GPIO LightSwitch high.
 		}else{
+			AlarmLabel.setVisible(false);
 			PostponeButton.setVisible(false);
 			AwakeButton.setVisible(false);
 		}
-		}
+
 	}
+}
