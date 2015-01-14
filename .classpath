@@ -2,5 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Hartvik/git/forecastio-lib-java/jar/ForecastIOLib-1.5.1-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hartvik/git/WakeUpNixie/lib/gson-2.3.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Hartvik/git/WakeUpNixie/lib/gson-2.3.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path=""/>
 </classpath>
