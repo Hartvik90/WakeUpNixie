@@ -46,8 +46,9 @@
             <ChoiceBox fx:id="HourCBox" layoutX="289.0" layoutY="2.0" prefHeight="10.0" prefWidth="58.0" />
             <ChoiceBox fx:id="MinCBox" layoutX="289.0" layoutY="32.0" prefHeight="10.0" prefWidth="58.0" />
             <Button fx:id="AlarmButton" layoutX="361.0" layoutY="4.0" mnemonicParsing="false" text="Toggle Alarm" />
-            <Button fx:id="Awake" layoutX="361.0" layoutY="32.0" mnemonicParsing="false" text="I am awake" />
+            <Button fx:id="AwakeButton" layoutX="361.0" layoutY="32.0" mnemonicParsing="false" text="I am awake" />
             <Sphere fx:id="AlarmStatus" layoutX="554.0" layoutY="36.0" opacity="0.68" radius="0.5" scaleX="40.0" scaleY="40.0" />
+            <Button fx:id="PostponeButton" layoutX="449.0" layoutY="32.0" mnemonicParsing="false" text="Postpone" />
          </children></AnchorPane>
    </bottom>
 </BorderPane>

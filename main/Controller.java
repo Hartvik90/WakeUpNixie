@@ -36,12 +36,15 @@ public class Controller implements Initializable{
 	@FXML
 	private Sphere AlarmStatus;
 	@FXML
-	private Button Awake;
+	private Button AwakeButton;
 	@FXML
 	private Button AlarmButton;
 	@FXML
 	private Button TomorrowButton;
 	@FXML
+	private Button PostponeButton;
+	@FXML
+	
 	private ImageView bilde;
 	@FXML
 	private AnchorPane LeftPane;
@@ -57,8 +60,9 @@ public class Controller implements Initializable{
 	private ChoiceBox HourCBox;
 	@FXML
 	private Label AlarmLabel;
+	
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -80,6 +84,15 @@ public class Controller implements Initializable{
 		/*		LysKnapp.setOnMouseClicked(event -> {
 	GPIO Toggle light on for 30 min		 *
 		 */
+		
+
+		PostponeButton.setOnMouseClicked(event -> {
+			calender.getTime().getHours();
+			alarm.setTime(calender.getTime().getHours(),(calender.getTime().getMinutes()+5));
+			alarm.setalarmSet(true);
+
+		});
+		
 		AlarmButton.setOnMouseClicked(event -> {
 			if (alarmFF == false){
 				alarm.setTime(Integer.parseInt(HourCBox.getValue().toString()),Integer.parseInt(MinCBox.getValue().toString()));
@@ -90,6 +103,7 @@ public class Controller implements Initializable{
 				alarmFF = false;
 			}
 		});
+		
 
 		TomorrowButton.setOnMousePressed(event ->{
 			nextDay = 1;
@@ -99,9 +113,9 @@ public class Controller implements Initializable{
 			nextDay = 0;
 		});
 
-		Awake.setOnMousePressed(event ->{
+		AwakeButton.setOnMousePressed(event ->{
 			alarm.setisAwake(true);
-			Awake.setVisible(false);
+			AwakeButton.setVisible(false);
 		});
 
 		Timeline timeline = new Timeline(new KeyFrame(
@@ -110,6 +124,9 @@ public class Controller implements Initializable{
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 
+		AlarmLabel.setVisible(false);
+		AlarmStatus.setVisible(false);
+		
 	}
 
 	/*	private void toggleLight(int time){
@@ -157,13 +174,25 @@ public class Controller implements Initializable{
 		bilde.setImage(new Image(Controller.class.getResource(day).toString()));
 		Klokke.setText(df.format(calender.getTime().getHours()) + ":" + df.format(calender.getTime().getMinutes()) + ":" + df.format(calender.getTime().getSeconds()));
 
-		if (alarm.getalarmSet() == true){
+		if (alarm.alarmSet()){
+			System.out.println("AlarmSet");
 			alarm.wakeUp();
 			AlarmStatus.setVisible(true);
 
 		}else{
 			AlarmStatus.setVisible(false);
-
+			AwakeButton.setVisible(false);
+			AlarmLabel.setVisible(false);
+		}
+		if (alarm.isRinging()){
+			AlarmLabel.setVisible(true);
+			//Slumre.setVisible(true);
+			//GPIO LightSwitch high.
+			PostponeButton.setVisible(true);
+			AwakeButton.setVisible(true);
+		}else{
+			PostponeButton.setVisible(false);
+			AwakeButton.setVisible(false);
+		}
 		}
 	}
-}
