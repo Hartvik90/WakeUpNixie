@@ -5,8 +5,6 @@ import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
-import com.github.dvdme.ForecastIOLib.ForecastIO;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Sphere;
 import javafx.util.Duration;
 //Test
@@ -37,11 +36,12 @@ public class Controller implements Initializable{
 	private boolean alarmFlipFlop = false;
 	private String day = null;
 	private Alarm alarm = new Alarm(0,0, calender);
+	private Weather weather;
 
 	@FXML
 	private BorderPane borderpanel;
 	@FXML
-	private Sphere AlarmStatus;
+	private ImageView AlarmStatus;
 	@FXML
 	private Button AwakeButton;
 	@FXML
@@ -51,7 +51,8 @@ public class Controller implements Initializable{
 	@FXML
 	private Button PostponeButton;
 	@FXML
-
+	private HBox AlarmBox;
+	@FXML
 	private ImageView bilde;
 	@FXML
 	private AnchorPane LeftPane;
@@ -67,32 +68,15 @@ public class Controller implements Initializable{
 	private ChoiceBox HourCBox;
 	@FXML
 	private Label AlarmLabel;
-	@FXML
-	private TextArea WeatherField;
+	@FXML 
+	public TextArea WeatherField;
 
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		//Må flyttes over i Wather init
 
-		ForecastIO fio = new ForecastIO("da289976f0020ae24853417ab9a6c011"); //instantiate the class with the API key. 
-		fio.setUnits(ForecastIO.UNITS_SI);             //sets the units as SI - optional
-		fio.setExcludeURL("hourly,minutely");             //excluded the minutely and hourly reports from the reply
-		fio.getForecast("58.937861", "5.702062");   //sets the latitude and longitude - not optional
-		//it will fail to get forecast if it is not set
-		//this method should be called after the options were set
-		System.out.println(fio.getDaily());
-		//System.out.printf("%s%s\n","Todays weather ",fio.getDaily().get("data").asArray().get(0).asObject().get("icon"));
-		//System.out.printf("%s%f\n","Minimum temperature ",fio.getDaily().get("data").asArray().get(0).asObject().get("temperatureMin").asDouble());
-		
-		String vare = " ";
-		vare +="Todays weather: ";
-		vare += fio.getDaily().get("data").asArray().get(0).asObject().get("icon");
-		//vare += "/nMinimum temperature: /n";
-		//vare += toString(fio.getDaily().get("data").asArray().get(0).asObject().get("temperatureMin").asString());		
-				WeatherField.appendText(vare);
 		//Set up itemboxes
 		HourCBox.setItems(FXCollections.observableArrayList("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
 		MinCBox.setItems(FXCollections.observableArrayList("00","05","10","15","20","25","30","35","40","45","50","55"));
@@ -106,11 +90,6 @@ public class Controller implements Initializable{
 		LeftPane.heightProperty().addListener((observable, oldvalue, newvalue)->{
 			bilde.setFitHeight(newvalue.doubleValue());
 		});
-
-
-		/*		LysKnapp.setOnMouseClicked(event -> {
-	GPIO Toggle light on for 30 min		 *
-		 */
 
 
 		PostponeButton.setOnMouseClicked(event -> {
@@ -146,25 +125,31 @@ public class Controller implements Initializable{
 			AwakeButton.setVisible(false);
 		});
 
-		Timeline timeline = new Timeline(new KeyFrame(
+		Timeline timelineRefresh = new Timeline(new KeyFrame(
 				Duration.millis(50),
 				ae -> updateCalender()));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
+		timelineRefresh.setCycleCount(Animation.INDEFINITE);
+		timelineRefresh.play();
+
+		Timeline timelineWeather = new Timeline(new KeyFrame(
+				Duration.millis(300000),
+				ae -> fiveMinThread()));
+		timelineWeather.setCycleCount(Animation.INDEFINITE);
+		timelineWeather.play();
 
 		AlarmLabel.setVisible(false);
-		AlarmStatus.setVisible(false);
-
+		//blahb
+		AlarmBox.setVisible(false);
+		weather = new Weather();
+		WeatherField.appendText(weather.updateWeather());
 	}
 
-	/*	private void toggleLight(int time){
-		Timeline lightTime = new Timeline(new KeyFrame(
-				Duration.millis(1000),
-				ae -> lightTrigger(time)));
-		lightTime.setCycleCount(Animation.INDEFINITE);
-		lightTime.play();	
+
+	public void fiveMinThread() {
+		WeatherField.clear();
+	WeatherField.appendText(weather.updateWeather());
+
 	}
-	 */
 
 
 	@SuppressWarnings("deprecation")
@@ -204,10 +189,10 @@ public class Controller implements Initializable{
 
 		if (alarm.alarmSet()){
 			alarm.wakeUp();
-			AlarmStatus.setVisible(true);
+			AlarmBox.setVisible(true);
 
 		}else{
-			AlarmStatus.setVisible(false);
+			AlarmBox.setVisible(false);
 			AwakeButton.setVisible(false);
 			AlarmLabel.setVisible(false);
 		}
@@ -215,7 +200,6 @@ public class Controller implements Initializable{
 			AlarmLabel.setVisible(true);
 			PostponeButton.setVisible(true);
 			AwakeButton.setVisible(true);
-			//Slumre.setVisible(true);
 			//GPIO LightSwitch high.
 		}else{
 			AlarmLabel.setVisible(false);

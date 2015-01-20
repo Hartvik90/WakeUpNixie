@@ -22,11 +22,14 @@
                      </image>
                   </ImageView>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="144.0">
                <children>
                   <Hyperlink fx:id="VaerLink" layoutX="67.0" layoutY="14.0" text="weather forecast" />
                   <Label fx:id="AlarmLabel" layoutX="73.0" layoutY="225.0" prefHeight="16.0" prefWidth="68.0" text="ALARM!!!" textFill="#dd0909" />
-                  <TextArea fx:id="WeatherField" layoutX="9.0" layoutY="37.0" prefHeight="174.0" prefWidth="165.0" />
+                  <TextArea fx:id="WeatherField" cacheHint="QUALITY" editable="false" layoutX="9.0" layoutY="37.0" prefHeight="174.0" prefWidth="245.0">
+                     <effect>
+                        <DropShadow />
+                     </effect></TextArea>
                </children></AnchorPane>
             <AnchorPane prefHeight="307.0" prefWidth="296.0">
                <children>
@@ -41,15 +44,23 @@
       </SplitPane>
    </center>
    <bottom>
-      <AnchorPane prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="TomorrowButton" layoutX="48.0" layoutY="23.0" mnemonicParsing="false" text="Show shcedule for tomorrow" />
             <ChoiceBox fx:id="HourCBox" layoutX="289.0" layoutY="2.0" prefHeight="10.0" prefWidth="58.0" />
             <ChoiceBox fx:id="MinCBox" layoutX="289.0" layoutY="32.0" prefHeight="10.0" prefWidth="58.0" />
             <Button fx:id="AlarmButton" layoutX="361.0" layoutY="4.0" mnemonicParsing="false" text="Toggle Alarm" />
             <Button fx:id="AwakeButton" layoutX="361.0" layoutY="32.0" mnemonicParsing="false" text="I am awake" />
-            <Sphere fx:id="AlarmStatus" layoutX="554.0" layoutY="36.0" opacity="0.68" radius="0.5" scaleX="40.0" scaleY="40.0" />
             <Button fx:id="PostponeButton" layoutX="449.0" layoutY="32.0" mnemonicParsing="false" text="Postpone" />
+            <HBox fx:id="AlarmBox" layoutX="528.0" layoutY="1.0" prefHeight="71.0" prefWidth="66.0">
+               <children>
+                  <ImageView fx:id="AlarmStatus" fitHeight="75.0" fitWidth="73.0">
+                     <image>
+                        <Image url="@alarmclock.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children></AnchorPane>
    </bottom>
 </BorderPane>
