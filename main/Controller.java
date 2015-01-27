@@ -99,6 +99,7 @@ public class Controller implements Initializable{
 
 		ToggleLights.setOnMouseClicked(event -> {
 		//LightIcon.setImage()url="@bulb_on.png";
+		});
 		PostponeButton.setOnMouseClicked(event -> {
 			calender.getTime().getHours();
 			alarm.setTime(calender.getTime().getHours(),(calender.getTime().getMinutes()+5));

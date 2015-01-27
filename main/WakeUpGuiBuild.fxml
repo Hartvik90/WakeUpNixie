@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderpanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+   <center>
+      <SplitPane dividerPositions="0.33277591973244147, 0.6337792642140468" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane fx:id="LeftPane" minHeight="0.0" minWidth="0.0" prefHeight="406.0" prefWidth="59.0">
+               <children>
+                  <ImageView fx:id="bilde" fitHeight="243.0" fitWidth="139.0" layoutX="29.0" layoutY="43.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@Monday.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="144.0">
+               <children>
+                  <Hyperlink fx:id="VaerLink" layoutX="67.0" layoutY="14.0" text="weather forecast" />
+                  <Label fx:id="AlarmLabel" layoutX="73.0" layoutY="225.0" prefHeight="16.0" prefWidth="68.0" text="ALARM!!!" textFill="#dd0909" />
+                  <TextArea fx:id="WeatherField" cacheHint="QUALITY" editable="false" layoutX="9.0" layoutY="37.0" prefHeight="174.0" prefWidth="245.0">
+                     <effect>
+                        <DropShadow />
+                     </effect></TextArea>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="307.0" prefWidth="296.0">
+               <children>
+                  <Label fx:id="Klokke" layoutX="55.0" layoutY="14.0" prefHeight="82.0" prefWidth="107.0" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="LightIcon" fitHeight="200.0" fitWidth="200.0" layoutX="9.0" layoutY="62.0" scaleX="0.2" scaleY="0.2">
+                     <image>
+                        <Image url="@bulb_off.png" />
+                     </image>
+                  </ImageView>
+                  <ToggleButton fx:id="ToggleLights" layoutX="75.0" layoutY="203.0" mnemonicParsing="false" text="Lights ON" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="TomorrowButton" layoutX="48.0" layoutY="23.0" mnemonicParsing="false" text="Show shcedule for tomorrow" />
+            <ChoiceBox fx:id="HourCBox" layoutX="289.0" layoutY="2.0" prefHeight="10.0" prefWidth="58.0" />
+            <ChoiceBox fx:id="MinCBox" layoutX="289.0" layoutY="32.0" prefHeight="10.0" prefWidth="58.0" />
+            <Button fx:id="AlarmButton" layoutX="361.0" layoutY="4.0" mnemonicParsing="false" text="Toggle Alarm" />
+            <Button fx:id="AwakeButton" layoutX="361.0" layoutY="32.0" mnemonicParsing="false" text="I am awake" />
+            <Button fx:id="PostponeButton" layoutX="449.0" layoutY="32.0" mnemonicParsing="false" text="Postpone" />
+            <HBox fx:id="AlarmBox" layoutX="528.0" layoutY="1.0" prefHeight="71.0" prefWidth="66.0">
+               <children>
+                  <ImageView fx:id="AlarmStatus" fitHeight="75.0" fitWidth="73.0">
+                     <image>
+                        <Image url="@alarmclock.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children></AnchorPane>
+   </bottom>
+</BorderPane>
