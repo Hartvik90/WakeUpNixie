@@ -16,7 +16,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -70,13 +69,8 @@ public class Controller implements Initializable{
 	@FXML
 	private Label AlarmLabel;
 	@FXML 
-	private ImageView LightIcon;
-	@FXML 
-	private ToggleButton ToggleLights;
-	@FXML 
 	public TextArea WeatherField;
 
-	
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
@@ -97,8 +91,7 @@ public class Controller implements Initializable{
 			bilde.setFitHeight(newvalue.doubleValue());
 		});
 
-		ToggleLights.setOnMouseClicked(event -> {
-		//LightIcon.setImage()url="@bulb_on.png";
+
 		PostponeButton.setOnMouseClicked(event -> {
 			calender.getTime().getHours();
 			alarm.setTime(calender.getTime().getHours(),(calender.getTime().getMinutes()+5));
