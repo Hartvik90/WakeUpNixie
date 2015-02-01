@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +42,11 @@ public class Controller implements Initializable{
 
 	@FXML
 	private BorderPane borderpanel;
+
+	@FXML
+	private TextField InterDay;
+
+
 	@FXML
 	private ImageView AlarmStatus;
 	@FXML
@@ -192,6 +198,18 @@ public class Controller implements Initializable{
 			break;
 		}
 
+		int hour = calender.getTime().getHours();
+		if(hour<6){
+			InterDay.setText("Good night!");
+		}else if(hour<12){
+			InterDay.setText("Good morning!");
+		}else if(hour<18){
+				InterDay.setText("Good afternoon!");
+		}else{
+			InterDay.setText("Good evening!");
+		}
+	
+		
 		bilde.setImage(new Image(Controller.class.getResource(day).toString()));
 		Klokke.setText(df.format(calender.getTime().getHours()) + ":" + df.format(calender.getTime().getMinutes()) + ":" + df.format(calender.getTime().getSeconds()));
 

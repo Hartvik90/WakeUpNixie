@@ -38,12 +38,13 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="LightIcon" fitHeight="200.0" fitWidth="200.0" layoutX="9.0" layoutY="62.0" scaleX="0.2" scaleY="0.2">
+                  <ImageView fx:id="LightIcon" fitHeight="200.0" fitWidth="200.0" layoutX="8.0" layoutY="157.0" scaleX="0.2" scaleY="0.2">
                      <image>
                         <Image url="@bulb_off.png" />
                      </image>
                   </ImageView>
-                  <ToggleButton fx:id="ToggleLights" layoutX="75.0" layoutY="203.0" mnemonicParsing="false" text="Lights ON" />
+                  <ToggleButton fx:id="ToggleLights" layoutX="75.0" layoutY="284.0" mnemonicParsing="false" text="Lights ON" />
+                  <TextField fx:id="InterDay" layoutX="34.0" layoutY="109.0" text="God morgen! " />
                </children>
             </AnchorPane>
         </items>
