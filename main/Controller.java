@@ -28,10 +28,6 @@ import javafx.util.Duration;
 //Test
 
 public class Controller implements Initializable{
-
-
-
-
 	private DecimalFormat df = new DecimalFormat("00.##");
 	private int nextDay;
 	private GregorianCalendar calender = new GregorianCalendar();
@@ -82,12 +78,22 @@ public class Controller implements Initializable{
 	@FXML 
 	public TextArea WeatherField;
 
-	
-
+	byte[] byteArray = new byte[100];
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		/*
+		// Creates an array formatting from 8 bit format to 2*4 bit format.
+		int count;
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+
+				byteArray[count] = (j << 4) | i;
+				count++;
+			}
+		}
+		 */
 
 		//Set up itemboxes
 		HourCBox.setItems(FXCollections.observableArrayList("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"));
@@ -104,7 +110,7 @@ public class Controller implements Initializable{
 		});
 
 		ToggleLights.setOnMouseClicked(event -> {
-		//LightIcon.setImage()url="@bulb_on.png";
+			//LightIcon.setImage()url="@bulb_on.png";
 		});
 		PostponeButton.setOnMouseClicked(event -> {
 			calender.getTime().getHours();
@@ -161,7 +167,7 @@ public class Controller implements Initializable{
 
 	public void fiveMinThread() {
 		WeatherField.clear();
-	WeatherField.appendText(weather.updateWeather());
+		WeatherField.appendText(weather.updateWeather());
 
 	}
 
@@ -204,12 +210,12 @@ public class Controller implements Initializable{
 		}else if(hour<12){
 			InterDay.setText("Good morning!");
 		}else if(hour<18){
-				InterDay.setText("Good afternoon!");
+			InterDay.setText("Good afternoon!");
 		}else{
 			InterDay.setText("Good evening!");
 		}
-	
-		
+
+
 		bilde.setImage(new Image(Controller.class.getResource(day).toString()));
 		Klokke.setText(df.format(calender.getTime().getHours()) + ":" + df.format(calender.getTime().getMinutes()) + ":" + df.format(calender.getTime().getSeconds()));
 
